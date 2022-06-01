@@ -156,7 +156,7 @@ case $upgrade_required in
     sudo find ./ ! -path "./versions/*" -type f -exec chmod 664 {} \; 
 
     printf 'Update Ghost'
-    ./ghost update 
+    ghost update 
 
     echo 'Checking the blog in 10 seconds'
     sleep 10 
