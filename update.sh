@@ -77,7 +77,7 @@ On_IWhite='\033[0;107m'   # White
 
 mlocate_check ()
 {
-  echo "Checking for curl..."
+  echo "Checking for mlocate..."
   if command -v mlocate > /dev/null; then
     echo "Detected mlocate..."
   else
@@ -91,8 +91,25 @@ mlocate_check ()
   fi
 }
 
+curl_check ()
+{
+  echo "Checking for curl..."
+  if command -v curl > /dev/null; then
+    echo "Detected curl..."
+  else
+    echo "Installing curl..."
+    sudo apt-get install -q -y curl
+    if [ "$?" -ne "0" ]; then
+      echo "Unable to install curl ! Your base system has a problem; please check your default OS's package repositories because curl should work."
+      echo "Repository installation aborted."
+      exit 1
+    fi
+  fi
+}
+
 # SET BLOG INSTALL PATH
 #--------------------------------------------------------
+curl_check
 mlocate_check
 echo "Update mlocate database" 
 sudo updatedb
